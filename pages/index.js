@@ -1,10 +1,10 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Butcherman, Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { getTrendingMovies } from "@/data/data-utility";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import MovieCard from "@/components/movieCard";
+import styles from './Home.module.css'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,23 +27,22 @@ export default function Home(props) {
   }
 
   return (
-    <div>
-      <ul>
-        {props.trendingMovies.map(val => {
-          return <li>
-            <h4>{val.title}</h4>
-            <h4>{val.rating}</h4>
-            <Link href={"/movies/" + val.id}>
-              <button>Click here for details!</button>
-            </Link>
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Trending Movies</h1>
+        <h2 className={styles.subtitle}>Check out what's popular right now</h2>
+      </header>
+      <ul className={styles.movieList}>
+        {props.trendingMovies.map(movie => {
+          return <li className={styles.movieItem}>
+            <MovieCard id={movie.id} title={movie.title} genre={movie.genre} rating={movie.rating} />
           </li>
         })}
-
       </ul>
+      <button onClick={goToGenresPage} className={styles.genreButton}>Browse Genres</button>
 
-      <button onClick={goToGenresPage}>Browse Genres</button>
     </div>
-  );
+  )
 }
 
 export async function getStaticProps() {

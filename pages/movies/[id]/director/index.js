@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
+import styles from './DirectorDetails.module.css';
 
 export default function Director() {
     const router = useRouter()
@@ -16,15 +17,24 @@ export default function Director() {
 
     let directorInfo = data.directorInfo
 
-    return <div>
-        <h2>{directorInfo.name}</h2>
-        <p>{directorInfo.biography}</p>
+    return <div className={styles.container}>
+        <h2 className={styles.name}>{directorInfo.name}</h2>
+        <p className={styles.biography}>{directorInfo.biography}</p>
         <br />
-        <ul>Movies directed:
-            {directorInfo.moviesDirected.map(movie => {
-                return <p>{movie.title} : {movie.releaseYear} : {movie.rating}</p>
-            })}
-        </ul>
+        <div>
+            <h3 className={styles.moviesHeading}>Movies directed:</h3>
+            <ul className={styles.moviesList}>
+                {directorInfo.moviesDirected.map(movie => {
+                    return (
+                        <li className={styles.movieItem}>
+                            <span className={styles.movieTitle}>{movie.title}</span>
+                            <span className={styles.movieYear}>{movie.releaseYear}</span>
+                            <span className={styles.movieRating}>{movie.rating}</span>
+                        </li>
+                    );
+                })}
+            </ul>
+        </div>
     </div>
 }
 

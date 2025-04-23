@@ -1,22 +1,33 @@
 import { getMovieWithDirector } from "@/data/data-utility"
 import Link from "next/link"
+import styles from './MovieDetails.module.css';
 
-export default function movie(props) {
-
+export default function MovieDetails(props) {
     const movie = props.movie
-
-    return <div>
-        <ul>
-            <li>Title: {movie.title}</li>
-            <li>Description: {movie.description}</li>
-            <Link href={"/movies/" + movie.id + "/director"} >
-                Director: {movie.director}. <button>Click here to see the director's details.</button>
+    return <div className={styles.container}>
+        <ul className={styles.detailsList}>
+            <li className={styles.detailItem}>
+                <span className={styles.label}>Title:</span>
+                <span className={`${styles.value} ${styles.title}`}>{movie.title}</span>
+            </li>
+            <li className={styles.detailItem}>
+                <span className={styles.label}>Description:</span>
+                <span className={`${styles.value} ${styles.description}`}>{movie.description}</span>
+            </li>
+            <Link href={"/movies/" + movie.id + "/director"} className={styles.directorLink}>
+                <span className={styles.directorName}>Director: {movie.director}.</span>
+                <button className={styles.directorButton}>Click here to see the director's details.</button>
             </Link>
-            <li>Release Year: {movie.releaseYear}</li>
-            <li>Rating: {movie.rating}</li>
+            <li className={styles.detailItem}>
+                <span className={styles.label}>Release Year:</span>
+                <span className={styles.value}>{movie.releaseYear}</span>
+            </li>
+            <li className={styles.detailItem}>
+                <span className={styles.label}>Rating:</span>
+                <span className={`${styles.value} ${styles.rating}`}>{movie.rating}</span>
+            </li>
         </ul>
-    </div >
-
+    </div>
 }
 
 
