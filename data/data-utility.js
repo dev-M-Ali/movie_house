@@ -57,8 +57,8 @@ export async function getDirectorDetails(movieID) {
             return movie.id === movieID
         })
 
-        console.log("In data-utility -> requiredMovie is: ")
-        console.log(movieID)
+        //console.log("In data-utility -> requiredMovie is: ")
+        //console.log(movieID)
 
         const requiredDirector = data.directors.find(director => {
             return requiredMovie.directorId === director.id
@@ -68,13 +68,13 @@ export async function getDirectorDetails(movieID) {
             return movie.directorId === requiredDirector.id
         })
 
-        console.log("In data-utility -> movies with same director are: ")
-        console.log(moviesWithSameDirector)
+        //console.log("In data-utility -> movies with same director are: ")
+        //console.log(moviesWithSameDirector)
 
         requiredDirector.moviesDirected = moviesWithSameDirector
 
-        console.log("In data-utility -> requiredDirector object now is: ")
-        console.log(requiredDirector)
+        //console.log("In data-utility -> requiredDirector object now is: ")
+        //console.log(requiredDirector)
 
         return requiredDirector
     }

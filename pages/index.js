@@ -26,6 +26,10 @@ export default function Home(props) {
     router.push("/genres")
   }
 
+  const goToAllMoviesPage = () => {
+    router.push("/movies")
+  }
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -39,8 +43,8 @@ export default function Home(props) {
           </li>
         })}
       </ul>
-      <button onClick={goToGenresPage} className={styles.genreButton}>Browse Genres</button>
-
+      <button onClick={goToGenresPage} className={styles.button}>Browse Genres</button>
+      <button onClick={goToAllMoviesPage} className={styles.button}>Browse All Movies</button>
     </div>
   )
 }

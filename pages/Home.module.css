@@ -36,7 +36,7 @@
     height: 100%;
 }
 
-.genreButton {
+.button {
     display: block;
     width: max-content;
     margin: 3rem auto 1rem;
@@ -52,7 +52,7 @@
     box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
 }
 
-.genreButton:hover {
+.button:hover {
     background-color: #1d4ed8;
     transform: translateY(-2px);
     box-shadow: 0 6px 10px rgba(37, 99, 235, 0.3);
