@@ -64,7 +64,6 @@
       "rating": 8.5
     }
   ],
-
   "genres": [
     {
       "id": "g1",
@@ -83,7 +82,6 @@
       "name": "Thriller"
     }
   ],
-
   "directors": [
     {
       "id": "d1",
