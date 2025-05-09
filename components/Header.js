@@ -1,13 +1,13 @@
 import { useContext } from "react"
 import ThemeContext from "@/store/theme-context"
-import styles from "./Header.module.css"
 import "@theme-toggles/react/css/Around.css"
 import { Around } from "@theme-toggles/react"
+import { Layout, Typography, Space } from 'antd';
+
 
 export default function Header() {
     const themeCtx = useContext(ThemeContext)
     //console.log(themeCtx)
-    console.log("LightModeState's value is currently: ", themeCtx.lightModeState)
 
     function modifyTheme(toggled) {
         console.log("Checkbox value:", toggled)
@@ -23,16 +23,25 @@ export default function Header() {
 
     }
 
+    console.log("LightModeState's value is currently: ", themeCtx.lightModeState)
+
+    const { Header } = Layout;
+    const { Title } = Typography;
+
     return (
-        <header className={styles.header}>
-            <h2 className={styles.title}>🎬 MovieHouse</h2>
-            <div className={styles.toggleWrapper}>
-                <Around
-                    duration={750}
-                    toggled={!themeCtx.lightModeState}
-                    onToggle={modifyTheme}
-                />
-            </div>
-        </header>
-    )
+        <Header style={{ background: 'transparent', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 24px' }}>
+            <Title level={2} style={{ margin: 0 }}>🎬 MovieHouse</Title>
+            <Space>
+                <div style={{ transform: 'scale(2)', transformOrigin: 'center' }}>
+                    <Around
+                        duration={750}
+                        toggled={!themeCtx.lightModeState}
+                        style={{ color: (themeCtx.lightModeState ? "#000000" : "#FFFFFF") }}
+                        onToggle={modifyTheme}
+                    />
+                </div>
+            </Space>
+        </Header>
+    );
+
 }

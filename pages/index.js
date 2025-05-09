@@ -4,7 +4,8 @@ import { Butcherman, Geist, Geist_Mono } from "next/font/google";
 import { getTrendingMovies } from "@/data/data-utility";
 import { useRouter } from "next/router";
 import MovieCard from "@/components/movieCard";
-import styles from './Home.module.css'
+import { Layout, Typography, List, Button } from 'antd';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,23 +31,43 @@ export default function Home(props) {
     router.push("/movies")
   }
 
+  const { Header, Content } = Layout;
+  const { Title, Paragraph } = Typography;
+
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>Trending Movies</h1>
-        <h2 className={styles.subtitle}>Check out what's popular right now</h2>
-      </header>
-      <ul className={styles.movieList}>
-        {props.trendingMovies.map(movie => {
-          return <li className={styles.movieItem}>
-            <MovieCard id={movie.id} title={movie.title} genre={movie.genre} rating={movie.rating} />
-          </li>
-        })}
-      </ul>
-      <button onClick={goToGenresPage} className={styles.button}>Browse Genres</button>
-      <button onClick={goToAllMoviesPage} className={styles.button}>Browse All Movies</button>
-    </div>
-  )
+    <Layout style={{ minHeight: '100vh', padding: '24px' }}>
+      <Header style={{ background: 'transparent', padding: 0 }}>
+        <Title level={1}>Trending Movies</Title>
+        <Paragraph>Check out what's popular right now</Paragraph>
+      </Header>
+
+      <Content style={{ marginTop: '24px' }}>
+        <List
+          grid={{ gutter: 16, column: 4 }}
+          dataSource={props.trendingMovies}
+          renderItem={movie => (
+            <List.Item>
+              <MovieCard
+                id={movie.id}
+                title={movie.title}
+                genre={movie.genre}
+                rating={movie.rating}
+              />
+            </List.Item>
+          )}
+        />
+
+        <div style={{ marginTop: '24px', display: 'flex', gap: '16px' }}>
+          <Button type="primary" onClick={goToGenresPage}>
+            Browse Genres
+          </Button>
+          <Button onClick={goToAllMoviesPage}>
+            Browse All Movies
+          </Button>
+        </div>
+      </Content>
+    </Layout>
+  );
 }
 
 export async function getStaticProps() {

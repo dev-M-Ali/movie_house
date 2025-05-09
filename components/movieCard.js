@@ -1,13 +1,33 @@
 import Link from "next/link"
-import styles from './MovieCard.module.css'
+import { Card, Typography, Button } from 'antd';
 
 export default function MovieCard(props) {
-    return <div className={styles.card}>
-        <h2 className={styles.title}>{props.title}</h2>
-        <h3 className={styles.genre}>{props.genre}</h3>
-        <h3 className={styles.rating}>{props.rating}</h3>
-        <Link href={"/movies/" + props.id}>
-            <button className={styles.button}>Click here for details!</button>
-        </Link>
-    </div>
+
+    const { Title, Text } = Typography;
+
+    return (
+        <Card
+            style={{
+                width: '100%',
+                borderRadius: '8px',
+                marginBottom: '16px',
+            }}
+            bodyStyle={{ padding: '16px' }}
+        >
+            <Title level={4} style={{ marginBottom: '8px' }}>
+                {props.title}
+            </Title>
+            <Text type="secondary" style={{ display: 'block', marginBottom: '4px' }}>
+                {props.genre}
+            </Text>
+            <Text strong style={{ display: 'block', marginBottom: '12px' }}>
+                {props.rating}
+            </Text>
+            <Link href={"/movies/" + props.id}>
+                <Button type="primary">
+                    Click here for details!
+                </Button>
+            </Link>
+        </Card>
+    );
 }

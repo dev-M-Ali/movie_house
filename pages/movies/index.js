@@ -2,7 +2,8 @@ import MovieCard from "@/components/movieCard"
 import { readDataFromFile } from "@/data/data-utility"
 import { notFound } from "next/navigation"
 import { useRef, useState } from "react"
-import styles from './AllMovies.module.css'
+import { Row, Col, Select, Button, Typography, Space } from 'antd';
+
 
 //Since we also have to add filtering by genre, it can be done by simply redirecting to genres/[id].
 //But since the question does not mention routing to that page, we assume it is 
@@ -24,28 +25,50 @@ export default function AllMovies(props) {
         else
             setMoviesState([...allMovies])
     }
-    return <div className={styles.container}>
-        <div className={styles.filterContainer}>
-            <h4 className={styles.filterLabel}>Filter by genre:</h4>
-            <select id='genreFilter' ref={genreIdFilter} className={styles.select}>
-                <option value="null">No Filter</option>
-                {
-                    //Using {null} in the above tag makes things complicated. Since tag attributes require strings, {null} is converted to an empty string "" (note that its not "null"), resulting in confusion.
-                    genres.map(genre => {
-                        return <option value={genre.id}>{genre.name}</option>
-                    })
-                }
-            </select>
-            <button onClick={filterMovies} className={styles.filterButton}>Filter</button>
+
+    const { Option } = Select;
+    const { Title } = Typography;
+
+    return (
+        <div style={{ padding: '24px' }}>
+            <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                <Row gutter={16} align="middle">
+                    <Col flex="none">
+                        <Title level={5} style={{ margin: 0 }}>Filter by genre:</Title>
+                    </Col>
+                    <Col flex="auto">
+                        <select id='genreFilter' ref={genreIdFilter}>
+                            <option value="null">No Filter</option>
+                            {
+                                //Using {null} in the above tag makes things complicated. Since tag attributes require strings, {null} is converted to an empty string "" (note that its not "null"), resulting in confusion.
+                                genres.map(genre => {
+                                    return <option value={genre.id}>{genre.name}</option>
+                                })
+                            }
+                        </select>
+                    </Col>
+                    <Col flex="none">
+                        <Button type="primary" onClick={filterMovies}>
+                            Filter
+                        </Button>
+                    </Col>
+                </Row>
+
+                <Row gutter={[16, 16]}>
+                    {moviesToRenderState.map(movie => (
+                        <Col key={movie.id} xs={24} sm={12} md={8} lg={6}>
+                            <MovieCard
+                                id={movie.id}
+                                title={movie.title}
+                                genre={movie.genre}
+                                rating={movie.rating}
+                            />
+                        </Col>
+                    ))}
+                </Row>
+            </Space>
         </div>
-        <div className={styles.moviesGrid}>
-            {
-                moviesToRenderState.map(movie => {
-                    return <MovieCard id={movie.id} title={movie.title} genre={movie.genre} rating={movie.rating} />
-                })
-            }
-        </div>
-    </div>
+    );
 }
 
 export async function getStaticProps() {

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
-import styles from './DirectorDetails.module.css';
+import { Typography, List, Divider } from 'antd';
 
 export default function Director() {
     const router = useRouter()
@@ -17,24 +17,31 @@ export default function Director() {
 
     let directorInfo = data.directorInfo
 
-    return <div className={styles.container}>
-        <h2 className={styles.name}>{directorInfo.name}</h2>
-        <p className={styles.biography}>{directorInfo.biography}</p>
-        <br />
-        <div>
-            <h3 className={styles.moviesHeading}>Movies directed:</h3>
-            <ul className={styles.moviesList}>
-                {directorInfo.moviesDirected.map(movie => {
-                    return (
-                        <li className={styles.movieItem}>
-                            <span className={styles.movieTitle}>{movie.title}</span>
-                            <span className={styles.movieYear}>{movie.releaseYear}</span>
-                            <span className={styles.movieRating}>{movie.rating}</span>
-                        </li>
-                    );
-                })}
-            </ul>
+    const { Title, Text, Paragraph } = Typography;
+
+    return (
+        <div style={{ padding: '24px', maxWidth: '800px', margin: '0 auto' }}>
+            <Title level={2}>{directorInfo.name}</Title>
+            <Paragraph>{directorInfo.biography}</Paragraph>
+
+            <Divider />
+
+            <Title level={4}>Movies Directed</Title>
+            <List
+                dataSource={directorInfo.moviesDirected}
+                renderItem={movie => (
+                    <List.Item>
+                        <div style={{ display: 'flex', width: '100%' }}>
+                            <Text strong style={{ flex: 2 }}>{movie.title}</Text>
+                            <Text style={{ flex: 1 }}>{movie.releaseYear}</Text>
+                            <Text type="secondary" style={{ flex: 1 }}>
+                                Rating: {movie.rating}
+                            </Text>
+                        </div>
+                    </List.Item>
+                )}
+            />
         </div>
-    </div>
+    );
 }
 

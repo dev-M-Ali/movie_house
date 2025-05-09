@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@theme-toggles/react": "^4.1.0",
+    "antd": "^5.25.0",
     "mongodb": "^6.16.0",
     "movie_house": "file:",
     "next": "15.3.1",

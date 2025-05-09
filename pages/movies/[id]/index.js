@@ -1,33 +1,41 @@
 import { getMovieWithDirector } from "@/data/data-utility"
 import Link from "next/link"
-import styles from './MovieDetails.module.css';
+import { Descriptions, Button, Typography } from 'antd';
 
 export default function MovieDetails(props) {
     const movie = props.movie
-    return <div className={styles.container}>
-        <ul className={styles.detailsList}>
-            <li className={styles.detailItem}>
-                <span className={styles.label}>Title:</span>
-                <span className={`${styles.value} ${styles.title}`}>{movie.title}</span>
-            </li>
-            <li className={styles.detailItem}>
-                <span className={styles.label}>Description:</span>
-                <span className={`${styles.value} ${styles.description}`}>{movie.description}</span>
-            </li>
-            <Link href={"/movies/" + movie.id + "/director"} className={styles.directorLink}>
-                <span className={styles.directorName}>Director: {movie.director}.</span>
-                <button className={styles.directorButton}>Click here to see the director's details.</button>
-            </Link>
-            <li className={styles.detailItem}>
-                <span className={styles.label}>Release Year:</span>
-                <span className={styles.value}>{movie.releaseYear}</span>
-            </li>
-            <li className={styles.detailItem}>
-                <span className={styles.label}>Rating:</span>
-                <span className={`${styles.value} ${styles.rating}`}>{movie.rating}</span>
-            </li>
-        </ul>
-    </div>
+
+    const { Text, Title } = Typography;
+
+    return (
+        <div style={{ padding: '24px' }}>
+            <Descriptions bordered column={1}>
+                <Descriptions.Item label="Title">
+                    <Title level={4} style={{ margin: 0 }}>{movie.title}</Title>
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Description">
+                    <Text>{movie.description}</Text>
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Director">
+                    <Link href={`/movies/${movie.id}/director`}>
+                        <Button type="link" style={{ padding: 0 }}>
+                            {movie.director} (Click for details)
+                        </Button>
+                    </Link>
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Release Year">
+                    <Text>{movie.releaseYear}</Text>
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Rating">
+                    <Text strong>{movie.rating}</Text>
+                </Descriptions.Item>
+            </Descriptions>
+        </div>
+    );
 }
 
 
