@@ -1,40 +1,149 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🎬 Movie House
 
-## Getting Started
+> **A modern movie management web app for FAST-NUCES Advanced Programming (Spring 2025)**
 
-First, run the development server:
+Movie House is a full-featured web application built with **Next.js** and **Ant Design**. It lets users browse, search, and filter movies, genres, and directors, with a responsive UI and support for dark/light themes. The project demonstrates advanced React and Next.js concepts, including SSG, SSR, CSR, API routes, and context-based state management.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚩 Features
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- **Browse & Search:** View trending movies, filter by genre, and search for directors.
+- **Genres & Directors:** Dedicated pages for genres and directors, with nested and dynamic routing.
+- **Movie Details:** Each movie has a detailed page, including director info and genre.
+- **Filtering:** Filter movies by genre using dropdowns or genre pages.
+- **Dark/Light Mode:** Toggle theme with persistence using localStorage and React Context.
+- **Responsive UI:** Built with Ant Design and CSS Modules for a clean, modern look.
+- **Custom 404:** Friendly error page for invalid routes.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🛠️ Tech Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Framework:** Next.js 15
+- **Frontend:** React 19, Ant Design
+- **State:** React Context API
+- **Data:** Static JSON (for demo), MongoDB (API routes)
+- **Styling:** CSS Modules, Ant Design
+- **Other:** SWR (client-side fetching), Theme toggles
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Data Model
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- **Movies:** Title, description, release year, rating, genre, director
+- **Genres:** Science Fiction, Adventure, Drama, Thriller
+- **Directors:** Christopher Nolan, Baz Luhrmann, Bong Joon-ho, The Wachowskis, Damien Chazelle, Denis Villeneuve
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📄 Pages & Routing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/` — Home (Trending movies, SSG)
+- `/movies` — All movies, filter by genre (SSG)
+- `/movies/[id]` — Movie details (dynamic route)
+- `/genres` — Genre list (SSR)
+- `/genres/[genreID]` — Movies by genre (dynamic route)
+- `/directors` — Director list (CSR)
+- `/directors/[id]` — Director details (dynamic route)
+- `/help/[...slugs]` — Catch-all help pages
+- `/404` — Custom error page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+---
+
+## ⚡ Rendering Strategies
+
+- **SSG:** Home, movies list
+- **SSR:** Genres page
+- **CSR:** Directors page (with SWR)
+- **API Routes:** `/api/movies`, `/api/genres`, `/api/directors` (MongoDB)
+
+---
+
+## 🌓 Theme Support
+
+- Toggle dark/light mode from the header
+- Theme state is persisted in localStorage
+- Uses Ant Design's `ConfigProvider` for theme switching
+
+---
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/movie-house.git
+   cd movie-house
+   ```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Set up environment variables**
+   - Copy `.env.example` to `.env.local` and set your MongoDB URI:
+   ```env
+   MONGODB_URI=mongodb://localhost:27017/moviehouse
+   # Or use your MongoDB Atlas URI
+   ```
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+5. **Open your browser**
+   - Go to [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🧑‍💻 Assignment Requirements
+
+### Assignment 2
+- Next.js routing strategies (SSG, SSR, CSR)
+- Dynamic and nested routes
+- Catch-all help routes
+- Custom 404 page
+- JSON data handling
+
+### Assignment 3
+- Ant Design UI integration
+- Backend API routes (MongoDB)
+- React Context for global state
+- Dark mode toggle with persistence
+- Modular, clean code structure
+
+---
+
+## 🗂️ Example Data
+
+Sample movies, genres, and directors are provided in `data/data.json` for demo/testing. API routes use MongoDB for persistent storage.
+
+---
+
+## 🖼️ UI Components
+
+- **MovieCard:** Displays movie info with Ant Design Card
+- **Header:** App bar with theme toggle
+- **Genre/Director Lists:** Linked lists for navigation
+- **Forms:** Genre filter dropdown, search inputs
+
+---
+
+## 📚 API Endpoints
+
+- `GET /api/movies` — All movies
+- `GET /api/movies/[id]` — Movie by ID
+- `GET /api/genres` — All genres
+- `GET /api/genres/[id]/movies` — Movies by genre
+- `GET /api/directors` — All directors
+- `GET /api/directors/[id]` — Director details
+
+---
+
+## 📖 Credits
+
+Built by Ali for Advanced Programming @ FAST-NUCES (Spring 2025)
+
+---
+
+## 📬 Contact
+
+For questions or feedback, open an issue or contact the course instructor.
